@@ -50,7 +50,7 @@ const registration = async (req, res) => {
         message: "Account Successfully created",
         id: newUser.id,
         email: newUser.email,
-        username: newUser.usename,
+        username: newUser.username,
       });
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
