@@ -3,7 +3,6 @@ import prisma from "../configs/prismaClient.js";
 
 export const protect = async (req, res, next) => {
   let token = req.cookies.access_token;
-    
 
   if (!token) {
     return res.status(401).send({ error: "Access Denied" });
@@ -11,9 +10,6 @@ export const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    console.log(decoded);
-    
 
     req.user = await prisma.users.findUnique({
       where: {
@@ -32,7 +28,6 @@ export const protect = async (req, res, next) => {
 
     next();
   } catch (error) {
-
     // console.log(error);
     if (error.name === "JsonWebTokenError") {
       return res.status(401).send({ error: "Unauthorized, invalid token" });

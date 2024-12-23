@@ -12,9 +12,9 @@ dotenv.config();
  */
 const registration = async (req, res) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, username, first_name, last_name, password } = req.body;
 
-    if ((!email, !username, !password)) {
+    if ((!email, !username, !password, !first_name, !last_name)) {
       return res
         .status(400)
         .json({ status_code: 400, error: "fill all fields" });
@@ -36,7 +36,9 @@ const registration = async (req, res) => {
       data: {
         email,
         username,
-        password: hashedPassword,
+        first_name,
+        last_name,
+        password: hashedPassword
       },
     });
 
@@ -52,6 +54,8 @@ const registration = async (req, res) => {
       id: newUser.id,
       email: newUser.email,
       username: newUser.username,
+      first_name: newUser.first_name,
+      last_name: newUser.last_name,
     });
   } catch (error) {
     if (process.env.NODE_ENV === "development") {

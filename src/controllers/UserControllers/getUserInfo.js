@@ -26,6 +26,8 @@ const getUserInfo = async (req, res) => {
         id: true,
         username: true,
         email: true,
+        first_name: true,
+        last_name: true,
       },
     });
 
