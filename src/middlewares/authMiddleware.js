@@ -1,15 +1,19 @@
 import jwt from "jsonwebtoken";
-import prisma from "../config/prismaClient.js";
+import prisma from "../configs/prismaClient.js";
 
 export const protect = async (req, res, next) => {
-  let token = req.header.access_token;
+  let token = req.cookies.access_token;
+    
 
   if (!token) {
     return res.status(401).send({ error: "Access Denied" });
   }
 
   try {
-    const decoded = jwt.verify(token, procee.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log(decoded);
+    
 
     req.user = await prisma.users.findUnique({
       where: {
@@ -17,7 +21,7 @@ export const protect = async (req, res, next) => {
       },
       select: {
         id: true,
-        name: true,
+        username: true,
         email: true,
       },
     });
@@ -28,6 +32,8 @@ export const protect = async (req, res, next) => {
 
     next();
   } catch (error) {
+
+    // console.log(error);
     if (error.name === "JsonWebTokenError") {
       return res.status(401).send({ error: "Unauthorized, invalid token" });
     }

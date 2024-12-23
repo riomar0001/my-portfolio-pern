@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import prisma from "../../configs/prismaClient.js";
 import hashPassword from "../../utils/hashPassword.js";
+import generateToken from "../../utils/generateToken.js";
 
 dotenv.config();
 
@@ -44,14 +45,14 @@ const registration = async (req, res) => {
       return res.status(400).json({ error: "User not created" });
     }
 
-    return res
-      .status(201)
-      .json({
-        message: "Account Successfully created",
-        id: newUser.id,
-        email: newUser.email,
-        username: newUser.username,
-      });
+    generateToken(res, newUser.id, newUser.username, newUser.email);
+
+    return res.status(201).json({
+      message: "Account Successfully created",
+      id: newUser.id,
+      email: newUser.email,
+      username: newUser.username,
+    });
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.log(error);

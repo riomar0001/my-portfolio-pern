@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import prisma from "../../configs/prismaClient.js";
 import bcryptjs from "bcryptjs";
+import generateToken from "../../utils/generateToken.js";
 
 dotenv.config();
 
@@ -40,6 +41,8 @@ const auth = async (req, res) => {
     if (!passwordMatch) {
       return res.status(400).json({ error: "Invalid Password" });
     }
+
+    generateToken(res, user.id, user.username, user.email);
 
     return res
       .status(202)
