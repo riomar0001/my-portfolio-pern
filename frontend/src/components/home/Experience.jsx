@@ -37,7 +37,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <div className="space-y-3 rounded-md border border-neutral-600 col-span-1 md:col-span-2 md:row-span-2 text-white bg-neutral-900 p-4">
+    <div className="text-white bg-neutral-900 rounded-md border border-neutral-700 p-4 col-span-1 md:col-span-2 md:row-span-3 space-y-2">
       <h1 className="text-lg md:text-xl font-bold flex flex-row items-center gap-2">
         <BriefcaseBusiness size={16} className="text-neutral-500" />
         <span>Experience</span>
@@ -45,7 +45,7 @@ const Experience = () => {
       {experiences.map((experience, index) => (
         <div key={index} className="mb-2">
           <h1 className="font-semibold">{experience.name}</h1>
-          <p className="text-xs flex flex-row items-center justify-between gap-1">
+          <div className="text-xs flex flex-row items-center justify-between gap-1">
             <span>{experience.location}</span>
             <Badge
               variant="outline"
@@ -53,7 +53,7 @@ const Experience = () => {
             >
               {experience.year}
             </Badge>
-          </p>
+          </div>
         </div>
       ))}
     </div>
