@@ -26,11 +26,16 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/user/auth", {
-        username_email: usernameEmail,
-        password: password,
-      });
-
+      const response = await axios.post(
+        "http://localhost:3000/api/user/auth",
+        {
+          username_email: usernameEmail,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response.data);
 
       alert("Login successful");
